@@ -1,0 +1,12 @@
+﻿global using OptixTechnicalTest.Domain;
+global using Microsoft.AspNetCore.Mvc;
+global using OptixTechnicalTest.Services;
+global using OptixTechnicalTest.Helpers;
+global using Dapper;
+global using Microsoft.Extensions.Options;
+global using System.Data.SqlClient;
+global using MudBlazor.Services;
+global using OptixTechnicalTest;
+global using OptixTechnicalTest.Client.Pages;
+global using OptixTechnicalTest.Components;
+global using Serilog;

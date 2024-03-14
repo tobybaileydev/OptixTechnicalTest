@@ -1,0 +1,155 @@
+﻿@page "/"
+
+<PageTitle>Optix Technical Test</PageTitle>
+
+
+<MudText Typo="Typo.h3" GutterBottom="true">Movie API</MudText>
+
+@if (!_loading)
+{
+    <MudGrid Class="mt-6">
+        <MudItem xs="12" md="4">
+            <MudTextField T="string" Value="_model.SearchTitleModel.SearchTitle" ErrorText="@_model.SearchTitleModel.Message"
+                          Immediate="true" Label="Movie Title" Variant="Variant.Text" FullWidth="true" Class="ml-4 mr-4"
+                          ShrinkLabel="true" ValueChanged="(string searchTitle) => SearchTitleOnChangeAsync(searchTitle)"
+                          Error="_model.SearchTitleModel.Invalid" />
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <MudNumericField Value="_model.SearchRecordsModel.SearchRecords" Label="Maximum Movies Returned" Variant="Variant.Text"
+                             Min="1" Max="_model.MaxRecords" Immediate="true" FullWidth="true" Error="_model.SearchRecordsModel.Invalid"
+                             ValueChanged="(int searchRecords) => SearchRecordsOnChangeAsync(searchRecords)" Class="ml-4 mr-4"
+                             ErrorText="@_model.SearchRecordsModel.Message" HideSpinButtons="true" />
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchOnClickAsync" FullWidth="true"
+                       Class="ml-4 mr-4 mt-4">
+                <MudText>
+                    Search
+                </MudText>
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+
+    @if (_model.HadInitialSearch)
+    {
+        @if (_model.MovieDataModels.Count == 0)
+        {
+            <MudText Class="mt-12" Color="Color.Info">
+                No results found for @($"""{_model.SearchTitleModel.SearchTitle}""")
+            </MudText>
+        }
+        else
+        {
+            <MudTable Class="mt-8" T="MovieDataModel" Items="_model.MovieDataModels" Breakpoint="Breakpoint.Sm" Loading="_searchLoading">
+                <HeaderContent>
+                    <MudTh>
+                        <MudText>
+                            Release Date
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Title
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Overview
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Popularity
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Vote Count
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Vote Average
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Original Language
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Genre
+                        </MudText>
+                    </MudTh>
+                    <MudTh>
+                        <MudText>
+                            Poster
+                        </MudText>
+                    </MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Release Date">
+                        <MudText Typo="Typo.caption">
+                            @context.Release_Date.ToString("dd-MM-yyyy") 
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Title">
+                        <MudText Typo="Typo.caption">
+                            @context.Title
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Overview">
+                        <MudText Typo="Typo.caption">
+                            @context.Overview
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Popularity">
+                        <MudText Typo="Typo.caption">
+                            @context.Popularity.ToString()
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Vote Count">
+                        <MudText Typo="Typo.caption">
+                            @context.Vote_Count.ToString()
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Vote Average">
+                        <MudText Typo="Typo.caption">
+                            @context.Vote_Average.ToString()
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Original Language">
+                        <MudText Typo="Typo.caption">
+                            @context.Original_Language
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Genre">
+                        @foreach (var genre in context.Genres)
+                        {
+                            <MudText Typo="Typo.caption">
+                                @genre
+                            </MudText><br/>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="Poster">
+                        <MudText Typo="Typo.caption">
+                            <MudButton Href="@context.Poster_Url" Target="_blank">
+                                <MudText Typo="Typo.caption">
+                                    Poster
+                                </MudText>
+                            </MudButton>
+                        </MudText>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+        }
+    }
+    else if (_searchLoading)
+    {
+        <MudProgressLinear Indeterminate="true" Class="mt-8" Color="Color.Primary" />
+    }
+}

@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+@using OptixTechnicalTest.Client.Components
+
+<MyMudThemeProvider />
+<MyMudProviders />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Dense="true">
+        <MudText Typo="Typo.h5">
+            Optix Technical Test
+        </MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/tobybaileydev/OptixTechnicalTest" Target="_blank" />
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-4">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

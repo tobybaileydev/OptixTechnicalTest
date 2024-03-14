@@ -1,0 +1,11 @@
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using Microsoft.Extensions.Logging;
+global using OptixTechnicalTest.Services;
+global using FluentAssertions;
+global using Microsoft.AspNetCore.Mvc;
+global using NSubstitute;
+global using NSubstitute.ExceptionExtensions;
+global using OptixTechnicalTest.Controllers;
+global using OptixTechnicalTest.Domain;
+global using Microsoft.Extensions.Options;
+global using OptixTechnicalTest.Helpers;
